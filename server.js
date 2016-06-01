@@ -26,14 +26,14 @@ var CWLeaderBoard = new Schema({
 });
 var User = mongoose.model('User', CWLeaderBoard);
 
-server.route('/')
+server.route('/users')
     .get(function (req, res) {
         User.find({}, function(err,doc){
             return res.status(200).json(doc);
         });
     });
 
-server.route('/:userName')
+server.route('/users/:userName')
     .get(function (req,res) { //get developer by userName
         res.json(req.dev);
     });
