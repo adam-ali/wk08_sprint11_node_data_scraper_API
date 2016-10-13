@@ -5,9 +5,21 @@ var morgan = require('morgan');
 var mongoose = require('mongoose');
 var server = express.Router();
 var Schema = mongoose.Schema;
+mongoose.connect('mongodb://localhost/CWLeaderBoard');
 
 app.use('/api',server);
-mongoose.connect('mongodb://localhost/CWLeaderBoard');
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+//////////////
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+/////////
+
 
 server.param('userName',function (req,res,next,userName) {
     User.findOne({user: userName},function(err,doc){
